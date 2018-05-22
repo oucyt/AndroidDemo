@@ -1,1 +1,1 @@
-include ':git', ':framework', ':camera'
+include ':git', ':framework', ':camera', ':thread'
