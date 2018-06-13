@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -74,12 +73,13 @@ public class MainActivity extends AppCompatActivity {
                 flatMap();
                 break;
             case R.id.btn8:
-                fun8();
+                concatMap();
                 break;
         }
     }
 
-    private void fun8() {
+    @SuppressLint("CheckResult")
+    private void concatMap() {
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Integer> e) throws Exception {
@@ -144,65 +144,65 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("CheckResult")
     private void concat() {
-        Observable<FoodList> cache = Observable.create(new ObservableOnSubscribe<FoodList>() {
-            @Override
-            public void subscribe(@NonNull ObservableEmitter<FoodList> e) throws Exception {
-                FoodList data = CacheManager.getInstance().getFoodListData();
-
-                // 在操作符 concat 中，只有调用 onComplete 之后才会执行下一个 Observable
-
-                if (data != null) { // 如果缓存数据不为空，则直接读取缓存数据，而不读取网络数据
-                    isFromNet = false;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            appendConsole("subscribe: 读取缓存数据:");
-                        }
-                    });
-
-                    e.onNext(data);
-                } else {
-                    isFromNet = true;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            appendConsole("subscribe: 读取网络数据:");
-                        }
-                    });
-                    e.onComplete();
-                }
-
-
-            }
-        });
-
-        Observable<FoodList> network = Rx2AndroidNetworking.get("http://www.tngou.net/api/food/list")
-                .addQueryParameter("rows", 10 + "")
-                .build()
-                .getObjectObservable(FoodList.class);
-
-
-        // 两个 Observable 的泛型应当保持一致
-
-        Observable.concat(cache, network)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<FoodList>() {
-                    @Override
-                    public void accept(@NonNull FoodList tngouBeen) throws Exception {
-                        if (isFromNet) {
-                            appendConsole("accept : 网络获取数据设置缓存: ");
-                            CacheManager.getInstance().setFoodListData(tngouBeen);
-                        }
-
-                        appendConsole("accept: 读取数据成功:" + tngouBeen.toString() + "");
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(@NonNull Throwable throwable) throws Exception {
-                        appendConsole("accept: 读取数据失败：" + throwable.getMessage() + "");
-                    }
-                });
+//        Observable<FoodList> cache = Observable.create(new ObservableOnSubscribe<FoodList>() {
+//            @Override
+//            public void subscribe(@NonNull ObservableEmitter<FoodList> e) throws Exception {
+//                FoodList data = CacheManager.getInstance().getFoodListData();
+//
+//                // 在操作符 concat 中，只有调用 onComplete 之后才会执行下一个 Observable
+//
+//                if (data != null) { // 如果缓存数据不为空，则直接读取缓存数据，而不读取网络数据
+//                    isFromNet = false;
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            appendConsole("subscribe: 读取缓存数据:");
+//                        }
+//                    });
+//
+//                    e.onNext(data);
+//                } else {
+//                    isFromNet = true;
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            appendConsole("subscribe: 读取网络数据:");
+//                        }
+//                    });
+//                    e.onComplete();
+//                }
+//
+//
+//            }
+//        });
+//
+//        Observable<FoodList> network = Rx2AndroidNetworking.get("http://www.tngou.net/api/food/list")
+//                .addQueryParameter("rows", 10 + "")
+//                .build()
+//                .getObjectObservable(FoodList.class);
+//
+//
+//        // 两个 Observable 的泛型应当保持一致
+//
+//        Observable.concat(cache, network)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new Consumer<FoodList>() {
+//                    @Override
+//                    public void accept(@NonNull FoodList tngouBeen) throws Exception {
+//                        if (isFromNet) {
+//                            appendConsole("accept : 网络获取数据设置缓存: ");
+//                            CacheManager.getInstance().setFoodListData(tngouBeen);
+//                        }
+//
+//                        appendConsole("accept: 读取数据成功:" + tngouBeen.toString() + "");
+//                    }
+//                }, new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(@NonNull Throwable throwable) throws Exception {
+//                        appendConsole("accept: 读取数据失败：" + throwable.getMessage() + "");
+//                    }
+//                });
 
     }
 
@@ -305,11 +305,18 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * 线程调度
+     * 1. subscribeOn是事件发射的线程，ObserverOn是接收事件的线程
+     * 2. 多次指定发射事件的线程只有第一次生效
+     * 3. 多次指定接收事件的线程，每次都有效
+     */
     @SuppressLint("CheckResult")
     private void schedulers() {
         Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Integer> e) throws Exception {
+
                 appendConsole("Observable thread is : " + Thread.currentThread().getName());
                 e.onNext(1);
                 e.onComplete();
@@ -384,7 +391,8 @@ public class MainActivity extends AppCompatActivity {
                 appendConsole("onNext " + integer);
                 i++;
                 if (i == 2) {
-                    // 在RxJava 2.x 中，新增的Disposable可以做到切断的操作，让Observer观察者不再接收上游事件
+                    // 在RxJava 2.x 中，新增的Disposable可以做到切断的操作，
+                    // 让Observer观察者不再接收上游事件
                     mDisposable.dispose();
                 }
             }
@@ -401,11 +409,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void appendConsole(String s) {
-        mTextView.setText(mTextView.getText().toString() + "\n" + s);
+    private void appendConsole(final String s) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                mTextView.setText(mTextView.getText().toString() + "\n" + s);
+            }
+        });
     }
 
     private void clearConsole() {
-        mTextView.setText("");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                mTextView.setText("");
+            }
+        });
     }
 }

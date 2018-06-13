@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/camera" />
             <option value="$PROJECT_DIR$/framework" />
             <option value="$PROJECT_DIR$/git" />
+            <option value="$PROJECT_DIR$/rxjava" />
             <option value="$PROJECT_DIR$/thread" />
           </set>
         </option>
