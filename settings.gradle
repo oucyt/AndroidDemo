@@ -1,1 +1,1 @@
-include ':git', ':framework', ':camera', ':thread'
+include ':git', ':framework', ':camera', ':thread', ':rxjava'
