@@ -18,6 +18,9 @@ import com.aliyun.alink.linksdk.channel.core.persistent.event.PersistentEventDis
 import com.aliyun.alink.linksdk.channel.core.persistent.mqtt.request.MqttPublishRequest;
 import com.aliyun.alink.linksdk.tools.ALog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import cn.fortrun.alibabamqtt.R;
 
 /**
@@ -42,7 +45,7 @@ public class MainActivity extends Activity {
     }
 
     private void initViews() {
-        consoleTV = (TextView) findViewById(R.id.textview_console);
+        consoleTV = findViewById(R.id.textview_console);
         mEditText = findViewById(R.id.et_content);
     }
 
@@ -58,14 +61,17 @@ public class MainActivity extends Activity {
     /**
      * @param view 上行 发布 请求
      */
-    public void publish(View view) {
+    public void publish(View view) throws JSONException {
         log("发布 " + DemoConfig.pubTopic);
         //Publish 请求
         MqttPublishRequest publishRequest = new MqttPublishRequest();
         // 设置要发布到的topic
         publishRequest.topic = DemoConfig.pubTopic;
         // 设置要发布的内容
-        publishRequest.payloadObj = "{“TargetDevice”:”huawei”,”control”:”data”}";
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("name","田宇");
+        jsonObject.put("sex","男");
+        publishRequest.payloadObj = jsonObject.toString();
         // 调用长连接发送请求，设置回调
         PersistentNet.getInstance().asyncSend(publishRequest, new IOnCallListener() {
             @Override

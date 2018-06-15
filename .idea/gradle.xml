@@ -10,9 +10,11 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/alibabamqtt" />
             <option value="$PROJECT_DIR$/camera" />
+            <option value="$PROJECT_DIR$/fragment" />
             <option value="$PROJECT_DIR$/fragmentdialog" />
             <option value="$PROJECT_DIR$/framework" />
             <option value="$PROJECT_DIR$/git" />
+            <option value="$PROJECT_DIR$/magic" />
             <option value="$PROJECT_DIR$/rxjava" />
             <option value="$PROJECT_DIR$/thread" />
           </set>

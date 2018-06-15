@@ -15,11 +15,14 @@ public class DemoConfig {
      * TODO change with your triad data
      * 注意： 三元组 需要安全存储 不要明文写在代码里
      */
-    public final static String productKey = "b1y3laWmX5A"; // TODO use your productKey
-    public final static String deviceName = "huawei"; // TODO use your deviceName
-    public final static String deviceSecret = "OGAGsL0EbXzYAtCjsZq0Plh1XaPtGQV1"; // TODO use your deviceSecret
-
-    private static String deviceName1 = "huawei";
+//    public final static String productKey = "b1y3laWmX5A"; // TODO use your productKey
+//    public final static String deviceName = "rock"; // TODO use your deviceName
+//    public final static String deviceSecret = "MoUOzRbVbTjoR63NKDDKi4IF5VkPgSRk"; // TODO use your deviceSecret
+//    private static String deviceName1 = "rock";
+    public final static String productKey = "b1CydLRBV7K"; // TODO use your productKey
+    public final static String deviceName = "tianyu01"; // TODO use your deviceName
+    public final static String deviceSecret = "jRfmCA6dbO5HUOU1e7HlpEJV94VoQe6g"; // TODO use your deviceSecret
+    private static String deviceName1 = "tianyu01";
     /**
      * 服务端开通套件之后 自动创建的 topic
      */

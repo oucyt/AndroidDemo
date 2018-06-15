@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">magic recode</string>
+    <item name="is_scale_size_tag" type="id"/>
+    <item name="is_scale_font_tag" type="id"/>
+    <string name="main_identity_check_str">身份\n核验</string>
+    <string name="b_brush_message">现只支持二代身份证</string>
+    <string name="card_reading_success">读取成功</string>
+    <string name="collection_of_documents">您可以收回证件，准备人脸识别</string>
+    <string name="isNetWork">暂无网络连接，请稍后重试</string>
+    <string name="request_failed">网络异常,请重试</string>
+    <string name="dialog_loading_str">正在连接，请稍等！</string>
+    <string name="main_hotel_name_str">微信生态酒店</string>
+    <string name="main_advervise_str">学院\n介绍</string>
+    <string name="main_plz_scan_qr_code_str">微信扫码，登记入住人信息后，点击下方按钮，领取房卡</string>
+    <string name="main_check_in_str">领卡入住</string>
+    <string name="main_notice_leave_back_card_str">温馨提示：离店时，可插卡退房</string>
+    <string name="chip_room_card_slot_full_str">回收卡槽已满</string>
+    <string name="chip_the_device_stop_service_str">此设备暂停使用， 请找前台服务员办理</string>
+    <string name="chip_system_updating">系统维护中</string>
+    <string name="main_checkouting_str">退房处理中</string>
+    <string name="title_bar_back">返回</string>
+    <string name="check_in_plz_swipe_idcard_str">请按图示刷二代身份证</string>
+    <string name="plz_wait_str">请稍候</string>
+    <string name="main_press_again_exit">再按一次退出</string>
+</resources>
