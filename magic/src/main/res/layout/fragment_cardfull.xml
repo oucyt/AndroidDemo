@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                style="@style/app_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_reception"
+        tools:ignore="ContentDescription"/>
+
+    <TextView
+        android:id="@+id/tv_device_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/image_view"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="@string/chip_the_device_stop_service_str"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        tools:text="此设备暂停使用， 请找前台服务员办理"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_device_stop"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="@string/chip_room_card_slot_full_str"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        tools:text="回收卡槽已满"/>
+
+
+</RelativeLayout>
