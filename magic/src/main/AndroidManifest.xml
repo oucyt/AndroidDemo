@@ -48,6 +48,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!--云吧服务-->
+        <service
+            android:name="io.yunba.android.core.YunBaService"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package cn.fortrun.magic.model;
 
+import cn.fortrun.magic.model.bean.CheckOutInfo;
 import cn.fortrun.magic.model.bean.DeviceConfigBean;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -53,9 +54,9 @@ public interface API {
 //    @POST("libra/wxaapp/createwxaqrcode")
 //    Observable<Response> getQrCode(@Body RequestBody params);
 //
-//    @POST("libra/room/info")
-//    Observable<JSONResponse<CheckOutInfo>> getCheckoutInfo(@Body RequestBody params);
-//
+    @POST("libra/room/info")
+    Observable<JSONResponse<CheckOutInfo>> getCheckoutInfo(@Body RequestBody params);
+
 //
 //    @POST("libra/order/subOrder")
 //    Observable<JSONResponse<Order>> getHotelOrder(@Body RequestBody params);

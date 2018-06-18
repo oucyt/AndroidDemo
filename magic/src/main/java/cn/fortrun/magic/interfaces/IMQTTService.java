@@ -2,8 +2,6 @@ package cn.fortrun.magic.interfaces;
 
 import android.content.Context;
 
-import cn.fortrun.mirror.model.entity.DeviceConfig;
-
 /**
  * description
  * MQTT服务接口
@@ -19,24 +17,26 @@ public interface IMQTTService {
     void init(Context context);
 
     /**
+     * 销毁资源
+     */
+    void destroy(Context context);
+
+    /**
      * 订阅主题
      */
-    void subscribe(Context context, DeviceConfig config);
+    void subscribe(Context context, String topic);
 
     /**
      * 取消订阅
      *
      * @param context
-     * @param config
      */
-    void unsubscribe(Context context, DeviceConfig config);
+    void unsubscribe(Context context, String topic);
 
     /**
-     * 发送指令
-     *
-     * @param cmd
-     * @param obj
-     * @param sender
+     * @param context
+     * @param receiver
+     * @param message
      */
-    void publish(Context context, String cmd, Object obj, String sender);
+    void publish(Context context, String receiver, String message);
 }

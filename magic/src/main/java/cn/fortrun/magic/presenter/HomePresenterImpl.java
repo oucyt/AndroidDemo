@@ -19,7 +19,7 @@ import cn.fortrun.magic.ui.HomeView;
 import cn.fortrun.magic.utils.NetUtils;
 
 /**
- *
+ * 主界面
  */
 public class HomePresenterImpl extends BasePresenterImpl<HomeView> {
 

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "cn.fortrun.magic1"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "3.0.0"
@@ -67,4 +67,14 @@ dependencies {
     //    implementation 'com.github.oucyt:AndroidLibrary:1.0.0'
     // Fragment封装库 https://github.com/YoKeyword/Fragmentation/blob/master/README_CN.md
     implementation 'me.yokeyword:fragmentation-core:1.3.4'
+    implementation 'me.yokeyword:eventbus-activity-scope:1.1.0'
+
+
+    implementation files('libs/yunba-sdk-release1.8.5.jar')
+    implementation files('libs/YTCommon.jar')
+
+
+    implementation 'com.aliyun.alink.linksdk:public-channel-core:0.2.1'
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0'
+    implementation 'com.alibaba:fastjson:1.2.40'
 }

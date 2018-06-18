@@ -1,5 +1,7 @@
 package cn.fortrun.magic.common;
 
+import cn.fortrun.magic.utils.YBManager;
+
 /**
  * description
  * 底座指令集
@@ -11,6 +13,13 @@ package cn.fortrun.magic.common;
  * @since 1.0.0
  */
 public class CMD {
+    private static final String READ_ID_CARD = "3103";
+
+    public static void readID() {
+        String sender = Constants.getAndroid().getDeviceId();
+        YBManager.publish(,,READ_ID_CARD);
+    }
+
     /**
      * APP请求指令集
      */

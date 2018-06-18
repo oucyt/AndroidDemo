@@ -157,6 +157,13 @@ public class Constants {
 //    //apk是否下载完成
 //    public static String DOWNLOAD_APK_NAME = "";
 
+
+
+    /*云吧key*/
+    public static String YUNBA_KEY = "581202f86cf991dc38fd2078";
+
+
+
     public static int QR_CODE_WIDTH = 255 ;
 
     public static String BASE_URL = "https://wqt.fortrun.cn";
