@@ -16,6 +16,7 @@ import cn.fortrun.magic.model.IHomeModel;
 import cn.fortrun.magic.model.bean.DeviceConfigBean;
 import cn.fortrun.magic.model.impl.HomeModelImpl;
 import cn.fortrun.magic.ui.HomeView;
+import cn.fortrun.magic.utils.mqtt.MqttManager;
 import cn.fortrun.magic.utils.NetUtils;
 
 /**
@@ -64,11 +65,12 @@ public class HomePresenterImpl extends BasePresenterImpl<HomeView> {
         // 保存配置信息
         Constants.setDeviceConfig(config);
 
+        MqttManager.init(getView().getAc().getApplicationContext(),config);
 //                openMQTTService(config);
 
         DeviceConfigBean.HotelConfigBean hotelConfig = config.getHotel_config();
         if (hotelConfig == null) {
-            Toast.makeText(getView().getActivity(), "酒店配置信息为null,请重启app", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getView().getAc(), "酒店配置信息为null,请重启app", Toast.LENGTH_SHORT).show();
             return;
         }
         // 决定是否显示二维码

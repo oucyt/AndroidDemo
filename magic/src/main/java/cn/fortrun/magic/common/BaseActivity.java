@@ -26,13 +26,13 @@ import org.greenrobot.eventbus.EventBus;
 import java.lang.reflect.Method;
 
 import butterknife.ButterKnife;
-import cn.fortrun.magic.ui.activity.SupportActivity;
-import cn.fortrun.magic.R;
 import cn.fortrun.magic.common.mvp.IPresenter;
 import cn.fortrun.magic.common.mvp.IView;
 import cn.fortrun.magic.custom.MyDialog;
 import cn.fortrun.magic.interfaces.ICountDown;
+import cn.fortrun.magic.ui.activity.SupportActivity;
 import cn.fortrun.magic.utils.SupportMultipleScreensUtil;
+import cn.fortrun.magic.R;
 
 /**
  * Created by wt on 2017/3/5.
@@ -206,9 +206,9 @@ public abstract class BaseActivity<P extends IPresenter<V>, V extends IView> ext
 
     public void initActionBarTitles(boolean showback, boolean showTime, boolean showTitle, String title) {
         this.isShowTime = showTime;
-        mBtnBack = (Button) findViewById(R.id.btn_back);
-        mTvTime = (TextView) findViewById(R.id.tv_time);
-        mTvTitle = (TextView) findViewById(R.id.tv_title);
+        mBtnBack = (Button) findViewById(R.id.btn_left);
+        mTvTime = (TextView) findViewById(R.id.tv_right);
+        mTvTitle = (TextView) findViewById(R.id.tv_center);
 
         mBtnBack.setOnClickListener(this);
         if (showTime) {
@@ -302,7 +302,7 @@ public abstract class BaseActivity<P extends IPresenter<V>, V extends IView> ext
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_back:
+            case R.id.btn_left:
                 setBack();
                 break;
         }

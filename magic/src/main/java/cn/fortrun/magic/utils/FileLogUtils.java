@@ -19,7 +19,7 @@ import java.util.Date;
  */
 public class FileLogUtils {
 
-    String TAG = FileLogUtils.class.getSimpleName();
+    private final String TAG = FileLogUtils.class.getName();
 
     private static FileLogUtils instance;
     private SimpleDateFormat mSimpleDateFormat;
@@ -58,9 +58,17 @@ public class FileLogUtils {
         //如果不存在
         File file = new File(parentPath);
         if (!file.exists()) {
-            file.mkdirs();//创建父路径
-        }
+            if (file.mkdirs()) {
 
+                Log.e(TAG, parentPath + " 创建成功");
+            } else
+                try {
+                    throw new Exception(parentPath + " 创建失败");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        }
+        Log.e(tag, msg);
         // 一个文件维护当天的日志
         Date today = new Date();
 
@@ -68,7 +76,7 @@ public class FileLogUtils {
 
         String path = parentPath + File.separator + filename;
 
-        String content = String.format("[日志级别:%c,标签:%s,设备时间:%s] > %s\n\n", type, tag, mSimpleDateFormat.format(today), msg);
+        String content = String.format("[日志级别:%c,标签:%s,设备时间:%s] > \n%s\n\n", type, tag, mSimpleDateFormat.format(today), msg);
 
         try {
             RandomAccessFile raf = new RandomAccessFile(path, "rw");

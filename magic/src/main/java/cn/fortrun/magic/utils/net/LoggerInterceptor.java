@@ -2,9 +2,9 @@ package cn.fortrun.magic.utils.net;
 
 import android.text.TextUtils;
 
-import com.orhanobut.logger.Logger;
-
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.fortrun.magic.utils.FileLogUtils;
 import okhttp3.Headers;
@@ -21,6 +21,7 @@ import okio.Buffer;
  */
 public class LoggerInterceptor implements Interceptor {
     public static final String TAG = "OkHttpUtils";
+    private static final String DEVIDE = "=========================================";
     private String tag;
     private boolean showResponse;
 
@@ -46,92 +47,82 @@ public class LoggerInterceptor implements Interceptor {
 
     private Response logForResponse(Response response) {
         try {
-            //===>response log
-
-            Response.Builder builder = response.newBuilder();
-            Response clone = builder.build();
             StringBuilder sb = new StringBuilder();
-            sb.append("\n=========response=========");
-            sb.append("\nurl:" + clone.request().url());
-            sb.append("\ncode:" + clone.code());
-            sb.append("\nprotocol:" + clone.protocol());
-            if (!TextUtils.isEmpty(clone.message()))
-                sb.append("\nmessage:" + clone.message());
-            if (showResponse) {
-                ResponseBody body = clone.body();
-                if (body != null) {
-                    MediaType mediaType = body.contentType();
-                    if (mediaType != null) {
-                        sb.append("\nresponseBody's contentType : " + mediaType.toString());
-                        if (isText(mediaType)) {
-                            String resp = body.string();
-                            sb.append("\nresponseBody's content : " + resp);
-
-                            body = ResponseBody.create(mediaType, resp);
-                            return response.newBuilder().body(body).build();
-                        } else {
-                            sb.append("\nresponseBody's content : " + " maybe [file part] , too large too print , ignored!");
-                        }
+            sb.append("\n").append(DEVIDE);
+            sb.append("\nurl:").append(response.request().url());
+            sb.append("\ncode:").append(response.code());
+            sb.append("\nprotocol:").append(response.protocol());
+            if (!TextUtils.isEmpty(response.message()))
+                sb.append("\nmessage:").append(response.message());
+            ResponseBody body = response.body();
+            if (body != null) {
+                sb.append("\ncontentType : " + body.contentType());
+                MediaType mediaType = body.contentType();
+                if (mediaType != null) {
+                    if (isText(mediaType)) {
+                        // string()方法不能调用两次，否则抛异常，具体看源码。java.lang.IllegalStateException: closed
+                        String content = body.string();
+                        sb.append("\ncontent : ").append(content);
+                        body = ResponseBody.create(mediaType, content);
+                        response = response.newBuilder().body(body).build();
+                    } else {
+                        sb.append("\ncontent : " + " maybe [file part] , too large too print , ignored!");
                     }
                 }
             }
-            sb.append("\n=========response end=========");
+            sb.append("\n").append(DEVIDE);
+            FileLogUtils.getInstance().i("http response", sb.toString());
 
-            FileLogUtils.getInstance().i("返回结果", sb.toString());
-            Logger.e(sb.toString());
+
         } catch (Exception e) {
 //            e.printStackTrace();
         }
-
         return response;
     }
 
     private void logForRequest(Request request) {
         try {
-            String url = request.url().toString();
             Headers headers = request.headers();
 
             StringBuilder sb = new StringBuilder();
 
-            sb.append("\n========request=======");
-            sb.append("\nmethod : " + request.method());
-            sb.append("\nurl : " + url);
+            sb.append("\n").append(DEVIDE);
+            sb.append("\nmethod : ").append(request.method());
+            sb.append("\nurl : ").append(request.url().toString());
+            sb.append("\nisHttps: ").append(request.isHttps());
             if (headers != null && headers.size() > 0) {
-                sb.append("\nheaders : " + headers.toString());
+                sb.append("\nheaders : ").append(headers.toString());
             }
-            FileLogUtils.getInstance().i("网络请求", sb.toString());
             RequestBody requestBody = request.body();
             if (requestBody != null) {
                 MediaType mediaType = requestBody.contentType();
                 if (mediaType != null) {
-                    sb.append("\nrequestBody's contentType : " + mediaType.toString());
+                    sb.append("\nmediaType : ").append(mediaType);
                     if (isText(mediaType)) {
-                        sb.append("\nrequestBody's content : " + bodyToString(request));
+                        sb.append("\ncontent : ").append(bodyToString(request));
                     } else {
-                        sb.append("\nrequestBody's content : " + " maybe [file part] , too large too print , ignored!");
+                        sb.append("\ncontent : " + " maybe [file part] , too large too print , ignored!");
                     }
                 }
             }
-            sb.append("\n========request end=======");
-            Logger.e(sb.toString());
+            sb.append("\n").append(DEVIDE);
+            FileLogUtils.getInstance().i("http request", sb.toString());
         } catch (Exception e) {
 //            e.printStackTrace();
         }
     }
 
     private boolean isText(MediaType mediaType) {
+
         if (mediaType.type() != null && mediaType.type().equals("text")) {
             return true;
         }
-        if (mediaType.subtype() != null) {
-            if (mediaType.subtype().equals("json") ||
-                    mediaType.subtype().equals("xml") ||
-                    mediaType.subtype().equals("html") ||
-                    mediaType.subtype().equals("webviewhtml")
-                    )
-                return true;
-        }
-        return false;
+        List<String> list = new ArrayList<>();
+        list.add("json");
+        list.add("xml");
+        list.add("html");
+        list.add("webviewhtml");
+        return mediaType.subtype() != null && list.contains(mediaType.subtype());
     }
 
     private String bodyToString(final Request request) {

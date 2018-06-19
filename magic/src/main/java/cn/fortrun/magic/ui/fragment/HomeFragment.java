@@ -1,5 +1,6 @@
 package cn.fortrun.magic.ui.fragment;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -8,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.ScreenUtils;
 import com.bumptech.glide.Glide;
@@ -18,13 +18,15 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.fortrun.magic.R;
 import cn.fortrun.magic.common.Constants;
+import cn.fortrun.magic.model.bean.BaseStateBean;
 import cn.fortrun.magic.model.bean.DeviceConfigBean;
+import cn.fortrun.magic.model.bean.IDCardBean;
 import cn.fortrun.magic.presenter.HomePresenterImpl;
 import cn.fortrun.magic.ui.HomeView;
 import cn.fortrun.magic.utils.DensityUtil;
 import cn.fortrun.magic.utils.SupportMultipleScreensUtil;
+import cn.fortrun.magic.R;
 
 /**
  * description
@@ -78,7 +80,7 @@ public class HomeFragment extends BaseFragment<HomePresenterImpl, HomeView> impl
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        Toast.makeText(_mActivity, "动画结束时回调", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(_mActivity, "动画结束时回调", Toast.LENGTH_SHORT).show();
         mPresenter.getConfig();
 
     }
@@ -102,8 +104,54 @@ public class HomeFragment extends BaseFragment<HomePresenterImpl, HomeView> impl
             case R.id.btn_identity_check:
                 break;
             case R.id.btn_take_card:
+                gotoCheckIn();
                 break;
         }
+    }
+
+    private void gotoCheckIn() {
+        BaseStateBean baseStateBean = Constants.getBaseState();
+        String issueBox = baseStateBean == null ? "" : baseStateBean.getIssue_box();
+        DeviceConfigBean bean = Constants.getDeviceConfig();
+
+        boolean noRoomCard = !isEmpty(issueBox) && issueBox.equals("EMPTY");
+        boolean noDeviceConfig = bean == null;
+        boolean noMatch = bean == null || bean.getExts() == null || isEmpty(bean.getExts().getBottom_topic());
+
+        if (noRoomCard) {
+            // 卡槽无卡
+            SwipeCardFragment fragment = SwipeCardFragment.newInstance();
+            Bundle bundle = SwipeCardFragment.deliver("设备无卡", "请等待营业员补充门卡或在前台办理入住业务", "", R.drawable.ic_reception, 60);
+            fragment.setArguments(bundle);
+            start(fragment);
+            return;
+        }
+        if (noDeviceConfig) {
+            // 未注册
+//            Toast.makeText(this, "设备未注册，暂不能办理业务", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (noMatch) {
+            // 未配对
+//            Toast.makeText(this, "设备未配对，暂不能办理业务", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // 入住
+
+        SwipeCardFragment fragment = SwipeCardFragment.newInstance();
+        Bundle bundle = SwipeCardFragment.deliver("请按图示刷二代身份证", "", "", R.drawable.ic_care, 60);
+        fragment.setArguments(bundle);
+        fragment.setOnGetIDCardSuccessListener(new SwipeCardFragment.OnGetIDCardSuccessListener() {
+            @Override
+            public void doNext(IDCardBean idCardBean) {
+
+            }
+        });
+        start(fragment);
+//        Intent intent = new Intent(this, ReadCardActivity.class);
+//        intent.putExtra("intent_from", 0);//酒店入住流程，会拉取订单
+//        intent.putExtra("qr_code", mQrCodeCached);
+//        startActivity(intent);
     }
 
     @Override
@@ -113,6 +161,7 @@ public class HomeFragment extends BaseFragment<HomePresenterImpl, HomeView> impl
             Bitmap mQrCodeCached = CodeUtils.createImage(deviceId, Constants.QR_CODE_WIDTH, Constants.QR_CODE_WIDTH, null);
             // 显示二维码
             Drawable drawable = new BitmapDrawable(mQrCodeCached);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             mTvQrCode.setCompoundDrawables(null, drawable, null, null);
         }
     }
@@ -228,4 +277,8 @@ public class HomeFragment extends BaseFragment<HomePresenterImpl, HomeView> impl
     }
 
 
+    @Override
+    public Activity getAc() {
+        return _mActivity;
+    }
 }

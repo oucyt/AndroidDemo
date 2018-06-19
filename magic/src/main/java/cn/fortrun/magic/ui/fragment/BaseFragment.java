@@ -1,5 +1,6 @@
 package cn.fortrun.magic.ui.fragment;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -12,10 +13,10 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.fortrun.magic.R;
 import cn.fortrun.magic.common.mvp.IPresenter;
 import cn.fortrun.magic.common.mvp.IView;
 import cn.fortrun.magic.utils.NetUtils;
+import cn.fortrun.magic.R;
 
 /**
  * description
@@ -73,5 +74,10 @@ public abstract class BaseFragment<P extends IPresenter<V>, V extends IView> ext
         } else {
             Toast.makeText(_mActivity, getResources().getString(R.string.isNetWork), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public Activity getAc() {
+        return _mActivity;
     }
 }

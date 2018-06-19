@@ -2,6 +2,8 @@ package cn.fortrun.magic.interfaces;
 
 import android.content.Context;
 
+import cn.fortrun.magic.model.bean.DeviceConfigBean;
+
 /**
  * description
  * MQTT服务接口
@@ -14,7 +16,7 @@ public interface IMQTTService {
     /**
      * 初始化
      */
-    void init(Context context);
+    void init(Context context, DeviceConfigBean config);
 
     /**
      * 销毁资源
@@ -39,4 +41,11 @@ public interface IMQTTService {
      * @param message
      */
     void publish(Context context, String receiver, String message);
+
+    /**
+     * 接收到的json数据
+     *
+     * @param json
+     */
+    void receive(String json);
 }

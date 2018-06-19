@@ -1,6 +1,7 @@
-package cn.fortrun.magic.utils;
+package cn.fortrun.magic.utils.mqtt;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 import cn.fortrun.magic.common.Constants;
 import cn.fortrun.magic.interfaces.IMQTTService;
+import cn.fortrun.magic.model.bean.DeviceConfigBean;
 
 /**
  * description
@@ -138,8 +140,18 @@ public class MqttManager {
 
     private static Context mContext;
 
-    public static void init(Context context) {
+    public static void init(Context context, DeviceConfigBean config) {
         mContext = context;
+        String host = config.getHost();
+        if (host.contains("yunba")) {
+            mService = new YunBaImpl();
+        } else if (host.contains("aliyun")) {
+            mService = new AliIotImpl();
+        } else {
+            Toast.makeText(context, "host未包含指定规则", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mService.init(context,config);
     }
 
     /**
@@ -180,7 +192,7 @@ public class MqttManager {
     }
 
     /**
-     * 接收到指令，要求返回app对应的信息
+     * 收到指令，要求返回app对应的信息
      */
     public static void backAppInfo(String whoRequest, boolean enable) {
         JsonObject data = new JsonObject();

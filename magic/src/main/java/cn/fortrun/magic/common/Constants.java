@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.AppUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.fortrun.magic.model.bean.BaseStateBean;
 import cn.fortrun.magic.model.bean.DeviceConfigBean;
 import cn.fortrun.magic.utils.DeviceIdUtils;
 
@@ -21,10 +22,10 @@ public class Constants {
      * Android设备信息
      */
     private static Android android;
-//    /**
-//     * 底座信息（Windows）
-//     */
-//    private static BaseStateBean baseState;
+    /**
+     * 底座信息（Windows）
+     */
+    private static BaseStateBean baseState;
 
     /**
      * 平板、酒店的配置信息
@@ -60,13 +61,13 @@ public class Constants {
         Constants.android = android;
     }
 
-//    public static BaseStateBean getBaseState() {
-//        return baseState;
-//    }
-//
-//    public static void setBaseState(BaseStateBean baseState) {
-//        Constants.baseState = baseState;
-//    }
+    public static BaseStateBean getBaseState() {
+        return baseState;
+    }
+
+    public static void setBaseState(BaseStateBean baseState) {
+        Constants.baseState = baseState;
+    }
 
     public static DeviceConfigBean getDeviceConfig() {
         return deviceConfig;

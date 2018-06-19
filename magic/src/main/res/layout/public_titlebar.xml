@@ -7,7 +7,7 @@
               android:orientation="horizontal">
 
     <Button
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_left"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -17,14 +17,14 @@
         android:padding="10dp"
         android:text="@string/title_bar_back"
         android:textColor="@color/main_color"
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone"
         tools:text="返回"
         tools:visibility="visible"/>
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_center"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -33,20 +33,21 @@
         android:padding="10dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:visibility="visible"
+        android:visibility="invisible"
         tools:text="标题"/>
 
 
     <TextView
-        android:id="@+id/tv_time"
+        android:id="@+id/tv_right"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:background="@drawable/shape_back_btn"
         android:padding="10dp"
         android:textColor="@color/main_color"
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         tools:text="60s"/>
 </LinearLayout>

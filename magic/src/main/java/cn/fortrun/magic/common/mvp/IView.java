@@ -1,7 +1,6 @@
 package cn.fortrun.magic.common.mvp;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 
 /**
  * description
@@ -14,11 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 public interface IView {
 
     /**
-     * 某些时候需要调用{@link AppCompatActivity}的方法
+     * 某些时候需要调用{@link Activity}的方法
      *
      * @return
      */
-     Activity getActivity();
+     Activity getAc();
 
 
     /**

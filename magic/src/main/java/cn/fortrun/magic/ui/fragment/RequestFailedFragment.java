@@ -1,7 +1,7 @@
 package cn.fortrun.magic.ui.fragment;
 
-import cn.fortrun.magic.R;
 import cn.fortrun.magic.common.mvp.IPresenter;
+import cn.fortrun.magic.R;
 
 /**
  * description

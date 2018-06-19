@@ -7,6 +7,7 @@ import com.blankj.utilcode.util.Utils;
 import com.squareup.leakcanary.LeakCanary;
 
 import cn.fortrun.magic.common.Constants;
+import cn.fortrun.magic.utils.FileLogUtils;
 import io.reactivex.functions.Consumer;
 import io.reactivex.plugins.RxJavaPlugins;
 import me.yokeyword.fragmentation.Fragmentation;
@@ -34,8 +35,8 @@ public class MyApplication extends Application {
         Log.e(TAG, "内存泄露检测工具[LeakCanary]初始化完成");
 //        CrashReport.initCrashReport(getApplicationContext(), "9fbcbe586d", true);
 //        Log.e(TAG, "程序异常日志上传工具[Bugly]初始化完成");
-//        FileLogUtils.getInstance().init(this);
-//        Log.e(TAG, "本地日志工具[FileLogUtils]初始化完成");
+        FileLogUtils.getInstance().init(this);
+        Log.e(TAG, "本地日志工具[FileLogUtils]初始化完成");
 
         Constants.init(this);
         Log.e(TAG, "系统常量[Constants]初始化完成");
