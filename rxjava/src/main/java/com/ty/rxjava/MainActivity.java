@@ -370,10 +370,14 @@ public class MainActivity extends AppCompatActivity {
                 appendConsole("Observable emit 2");
                 e.onNext(2);
                 appendConsole("Observable emit 3");
+
+                appendConsole(e.isDisposed()+"");
+
                 e.onNext(3);
-                e.onComplete();
+//                e.onComplete();
                 appendConsole("Observable emit 4");
                 e.onNext(4);
+
             }
         }).subscribe(new Observer<Integer>() { // 第三步：订阅
 

@@ -1,1 +1,1 @@
-include ':git', ':framework', ':camera', ':thread', ':rxjava', ':fragment', ':magic','fragmentdialog','alibabamqtt'
+include ':git', ':framework', ':camera', ':thread', ':rxjava', ':fragment', ':magic', ':unittest', ':glide','fragmentdialog','alibabamqtt'

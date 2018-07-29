@@ -14,9 +14,11 @@
             <option value="$PROJECT_DIR$/fragmentdialog" />
             <option value="$PROJECT_DIR$/framework" />
             <option value="$PROJECT_DIR$/git" />
+            <option value="$PROJECT_DIR$/glide" />
             <option value="$PROJECT_DIR$/magic" />
             <option value="$PROJECT_DIR$/rxjava" />
             <option value="$PROJECT_DIR$/thread" />
+            <option value="$PROJECT_DIR$/unittest" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
