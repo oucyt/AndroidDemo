@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.text_view)
     TextView mTextView;
     private String TAG = MainActivity.class.getName();
+    private Disposable mDisposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +67,46 @@ public class MainActivity extends AppCompatActivity {
 
         // 数学和聚合操作
         Average();
+        foreach();
+
+    }
+
+    private void foreach() {
     }
 
     private void Average() {
 
-        Observable.just(1,2,3)
-                .min
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
+                emitter.onNext(1);
+                mDisposable.dispose();
+//                emitter.onComplete();
+                emitter.onError(new Exception("ddd"));
+            }
+        }).subscribe(new Observer<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mDisposable = d;
+                Log.d(TAG, "onSubscribe");
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d(TAG, integer + "");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG, e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+                Log.d(TAG, "onComplete");
+            }
+        });
     }
 
     @SuppressLint("CheckResult")
