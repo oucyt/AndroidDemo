@@ -1,1 +1,1 @@
-include ':glide', ':rxjava2', ':alibabamqtt', ':downloaddemo'
+include ':rxjava2', ':alibabamqtt', ':downloaddemo', ':db-demo'
