@@ -9,8 +9,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/alibabamqtt" />
+            <option value="$PROJECT_DIR$/db-demo" />
             <option value="$PROJECT_DIR$/downloaddemo" />
-            <option value="$PROJECT_DIR$/glide" />
             <option value="$PROJECT_DIR$/rxjava2" />
           </set>
         </option>
