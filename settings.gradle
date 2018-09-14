@@ -1,1 +1,1 @@
-include ':rxjava2', ':alibabamqtt', ':downloaddemo', ':db-demo', ':io-demo'
+include ':rxjava2', ':alibabamqtt', ':downloaddemo', ':db-demo', ':io-demo', ':animator-demo'

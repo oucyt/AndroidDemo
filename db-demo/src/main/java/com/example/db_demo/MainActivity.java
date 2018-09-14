@@ -9,7 +9,11 @@ import android.widget.TextView;
 
 import com.example.db_demo.entity.Customer;
 import com.example.db_demo.entity.Friend;
+import com.example.db_demo.entity.FriendDao;
 import com.example.db_demo.entity.User;
+import com.example.db_demo.entity.UserDao;
+
+import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +41,34 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 //        test();
         test1();
+//        test2();
+        test3();
+    }
+
+    private void test3() {
+        List<User> users = App.getDaoInstant().getUserDao().loadAll();
+        int di = 9;
+    }
+
+    private void test2() {
+        //查询地址是住在迪拜大楼的用户
+        QueryBuilder<User> queryBuilder = App.getDaoInstant().getUserDao().queryBuilder();
+        queryBuilder.join(UserDao.Properties.FriendId, Friend.class)
+                .where(FriendDao.Properties.Name.eq("田宇"));
+        List<User> users = queryBuilder.list();
+
     }
 
     private void test1() {
+
+        Friend friend = new Friend();
+        friend.setName("田宇");
+        friend.setAge(23);
+        long friendId = App.getDaoInstant().getFriendDao().insert(friend);
+
         User user = new User();
         user.setName("Tom");
+        user.setFriendId(friendId);
 
         long flag = App.getDaoInstant().getUserDao().insert(user);
         List<Customer> customers = new ArrayList<>();

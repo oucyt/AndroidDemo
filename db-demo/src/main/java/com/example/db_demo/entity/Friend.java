@@ -16,15 +16,15 @@ import org.greenrobot.greendao.annotation.Generated;
 public class Friend {
 
     @Id
-    private Long id;
+    private Long _id;
 
     private String name;
 
     private int age;
 
-    @Generated(hash = 695648774)
-    public Friend(Long id, String name, int age) {
-        this.id = id;
+    @Generated(hash = 851585025)
+    public Friend(Long _id, String name, int age) {
+        this._id = _id;
         this.name = name;
         this.age = age;
     }
@@ -33,12 +33,12 @@ public class Friend {
     public Friend() {
     }
 
-    public Long getId() {
-        return this.id;
+    public Long get_id() {
+        return this._id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void set_id(Long _id) {
+        this._id = _id;
     }
 
     public String getName() {
@@ -56,4 +56,5 @@ public class Friend {
     public void setAge(int age) {
         this.age = age;
     }
+
 }

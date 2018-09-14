@@ -5,15 +5,15 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.ToMany;
 import org.greenrobot.greendao.annotation.ToOne;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
 
 import java.util.List;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.DaoException;
 
 @Entity
 public class User {
     @Id
-    private Long id;
+    private Long _id;
 
     @NotNull
     private String name;
@@ -26,21 +26,17 @@ public class User {
     @ToMany(referencedJoinProperty = "userId")
     private List<Customer> customers;
 
-    /**
-     * Used to resolve relations
-     */
+    /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    /**
-     * Used for active entity operations.
-     */
+    /** Used for active entity operations. */
     @Generated(hash = 1507654846)
     private transient UserDao myDao;
 
-    @Generated(hash = 104574310)
-    public User(Long id, @NotNull String name, Long friendId) {
-        this.id = id;
+    @Generated(hash = 935440315)
+    public User(Long _id, @NotNull String name, Long friendId) {
+        this._id = _id;
         this.name = name;
         this.friendId = friendId;
     }
@@ -49,12 +45,12 @@ public class User {
     public User() {
     }
 
-    public Long getId() {
-        return this.id;
+    public Long get_id() {
+        return this._id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void set_id(Long _id) {
+        this._id = _id;
     }
 
     public String getName() {
@@ -76,9 +72,7 @@ public class User {
     @Generated(hash = 1034232818)
     private transient Long friend__resolvedKey;
 
-    /**
-     * To-one relationship, resolved on first access.
-     */
+    /** To-one relationship, resolved on first access. */
     @Generated(hash = 2055334107)
     public Friend getFriend() {
         Long __key = this.friendId;
@@ -97,16 +91,42 @@ public class User {
         return friend;
     }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
-    @Generated(hash = 153242830)
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 8469225)
     public void setFriend(Friend friend) {
         synchronized (this) {
             this.friend = friend;
-            friendId = friend == null ? null : friend.getId();
+            friendId = friend == null ? null : friend.get_id();
             friend__resolvedKey = friendId;
         }
+    }
+
+    /**
+     * To-many relationship, resolved on first access (and after reset).
+     * Changes to to-many relations are not persisted, make changes to the target entity.
+     */
+    @Generated(hash = 1201841370)
+    public List<Customer> getCustomers() {
+        if (customers == null) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            CustomerDao targetDao = daoSession.getCustomerDao();
+            List<Customer> customersNew = targetDao._queryUser_Customers(_id);
+            synchronized (this) {
+                if (customers == null) {
+                    customers = customersNew;
+                }
+            }
+        }
+        return customers;
+    }
+
+    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
+    @Generated(hash = 608715293)
+    public synchronized void resetCustomers() {
+        customers = null;
     }
 
     /**
@@ -143,34 +163,6 @@ public class User {
             throw new DaoException("Entity is detached from DAO context");
         }
         myDao.update(this);
-    }
-
-    /**
-     * To-many relationship, resolved on first access (and after reset).
-     * Changes to to-many relations are not persisted, make changes to the target entity.
-     */
-    @Generated(hash = 1989164095)
-    public List<Customer> getCustomers() {
-        if (customers == null) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            CustomerDao targetDao = daoSession.getCustomerDao();
-            List<Customer> customersNew = targetDao._queryUser_Customers(id);
-            synchronized (this) {
-                if (customers == null) {
-                    customers = customersNew;
-                }
-            }
-        }
-        return customers;
-    }
-
-    /** Resets a to-many relationship, making the next get call to query for a fresh result. */
-    @Generated(hash = 608715293)
-    public synchronized void resetCustomers() {
-        customers = null;
     }
 
     /** called by internal mechanisms, do not call yourself. */
