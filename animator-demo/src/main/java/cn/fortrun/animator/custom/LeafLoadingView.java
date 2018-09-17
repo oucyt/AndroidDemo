@@ -110,6 +110,7 @@ public class LeafLoadingView extends View {
         mBitmapPaint.setAntiAlias(true);
         mBitmapPaint.setDither(true);
         mBitmapPaint.setFilterBitmap(true);
+        mBitmapPaint.setXfermode()
 
         mWhitePaint = new Paint();
         mWhitePaint.setAntiAlias(true);
