@@ -1,4 +1,4 @@
-package cn.fortrun.animator.custom;
+package cn.fortrun.demos.custom;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-import cn.fortrun.animator.R;
+import cn.fortrun.demos.R;
 
 /**
  * description

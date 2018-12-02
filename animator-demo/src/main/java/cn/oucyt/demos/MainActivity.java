@@ -1,4 +1,4 @@
-package cn.fortrun.animator;
+package cn.oucyt.demos;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -8,10 +8,11 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.orhanobut.logger.Logger;
+import com.blankj.utilcode.util.LogUtils;
 
 import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -26,11 +27,13 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        String path = intent.getStringExtra("com.example.android.apis.Path");
+        // 当前正处在哪个层级
+        String path = intent.getStringExtra("cn.fortrun.animator_demo");
+        LogUtils.e(" intent.getStringExtra(\"cn.fortrun.animator_demo\") path:" + path);
         if (path == null) {
+            // 顶层
             path = "";
         }
-        Logger.d("Demos onCreate path == " + path);
         setListAdapter(new SimpleAdapter(this,
                 getData(path),
                 android.R.layout.simple_list_item_1,
@@ -44,10 +47,10 @@ public class MainActivity extends ListActivity {
      * 通过 Activity 中 Intent.CATEGORY_SAMPLE_CODE 标识，遍历系统中注册该标识的 Activity
      * 根据路径地址，返回封装之后的结果
      *
-     * @param prefix
+     * @param levels 当前所处层级
      * @return
      */
-    protected List<Map<String, Object>> getData(String prefix) {
+    protected List<Map<String, Object>> getData(String levels) {
         List<Map<String, Object>> result = new ArrayList<>();
 
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
@@ -58,38 +61,47 @@ public class MainActivity extends ListActivity {
             return result;
         }
 
-        String[] prefixPath;
-        String prefixWithSlash = prefix;
+        String[] nodeArray;
+        String nodeString = levels;
 
-        if ("".equals(prefix)) {
-            prefixPath = null;
+        if ("".equals(levels)) {
+            nodeArray = null;
         } else {
-            prefixPath = prefix.split("/");
-            prefixWithSlash = prefix + "/";
+            // ["APP","Menu"]
+            nodeArray = levels.split("/");
+            // APP/Menu/
+            nodeString = levels + "/";
         }
+        // 用以记录下一层级的列表，
         Map<String, Boolean> entries = new HashMap<>();
-
+        LogUtils.e("层级:" + levels);
+        LogUtils.e("层级数组:" + Arrays.toString(nodeArray));
+        LogUtils.e("层级路径:" + nodeString);
         for (ResolveInfo info : list) {
-            // androidManifest设置的label
+            // androidManifest中Activity对应的label
             String label = (String) info.loadLabel(getPackageManager());
+            LogUtils.e("label:" + label);
             if (label == null) {
-                // Activity的全限定路径
+                // 如果未设置label,则获取Activity的全限定路径
                 label = info.activityInfo.name;
+                LogUtils.e("label:" + label);
             }
 
-            if (prefixWithSlash.length() == 0 || label.startsWith(prefixWithSlash)) {
+            if (nodeString.length() == 0 || label.startsWith(nodeString)) {
+                // 列举出当前层级下的所有直接子层级
+                String[] labelPathArr = label.split("/");
+                // 这个label的下一层级
+                String nextLabel = nodeArray == null ? labelPathArr[0] : labelPathArr[nodeArray.length];
 
-                String[] labelPath = label.split("/");
-
-                String nextLabel = prefixPath == null ? labelPath[0] : labelPath[prefixPath.length];
-
-                if ((prefixPath != null ? prefixPath.length : 0) == labelPath.length - 1) {
+                if ((nodeArray != null ? nodeArray.length : 0) == labelPathArr.length - 1) {
+                    // 如果路径前缀和当前label的父路径一致，则绑定跳转事件；否则进入子层级
                     addItem(result, nextLabel, activityIntent(
                             info.activityInfo.applicationInfo.packageName,
                             info.activityInfo.name));
                 } else {
                     if (entries.get(nextLabel) == null) {
-                        addItem(result, nextLabel, browseIntent("".equals(prefix) ? nextLabel : prefix + "/" + nextLabel));
+                        // 进入下一层级
+                        addItem(result, nextLabel, browseIntent("".equals(levels) ? nextLabel : levels + "/" + nextLabel));
                         entries.put(nextLabel, true);
                     }
                 }
@@ -109,21 +121,23 @@ public class MainActivity extends ListActivity {
 
 
     protected Intent activityIntent(String pkg, String componentName) {
+        LogUtils.e("pkg:" + pkg);
+        LogUtils.e("componentName:" + componentName);
         Intent result = new Intent();
         result.setClassName(pkg, componentName);
         return result;
     }
 
     protected Intent browseIntent(String path) {
+        LogUtils.e("path:" + path);
         Intent result = new Intent();
         result.setClass(this, MainActivity.class);
-        result.putExtra("com.example.android.apis.Path", path);
+        result.putExtra("cn.fortrun.animator_demo", path);
         return result;
     }
 
     protected void addItem(List<Map<String, Object>> data, String name, Intent intent) {
         Map<String, Object> temp = new HashMap<>();
-        Logger.d("name=%s,intent=%s", name, intent);
         temp.put("title", name);
         temp.put("intent", intent);
         data.add(temp);

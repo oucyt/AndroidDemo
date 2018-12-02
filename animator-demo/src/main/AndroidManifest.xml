@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="cn.fortrun.animator">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="cn.fortrun.demos">
 
     <application
+        android:name="cn.fortrun.demos.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="cn.fortrun.animator.MainActivity">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name="cn.oucyt.demos.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name="cn.oucyt.demos.graphics.loading.BallRotateIndicatorActivity"
+            android:label="graphics/loading">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.SAMPLE_CODE"/>
+            </intent-filter>
+
+        </activity>
         <activity
-            android:name="cn.fortrun.animator.wave.DynamicWaveActivity"
+            android:name="cn.fortrun.demos.wave.DynamicWaveActivity"
             android:label="@string/label_wave">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="cn.fortrun.animator.custom.CustomViewActivity"
+            android:name="cn.fortrun.demos.custom.CustomViewActivity"
             android:label="自定义View">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

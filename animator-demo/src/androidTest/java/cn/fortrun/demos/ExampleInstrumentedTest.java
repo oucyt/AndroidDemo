@@ -1,4 +1,4 @@
-package cn.fortrun.animator;
+package cn.fortrun.demos;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

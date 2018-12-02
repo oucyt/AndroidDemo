@@ -1,4 +1,4 @@
-package cn.fortrun.animator.custom;
+package cn.fortrun.demos.custom;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;

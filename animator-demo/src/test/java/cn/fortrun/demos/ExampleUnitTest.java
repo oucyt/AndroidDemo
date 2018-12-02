@@ -1,4 +1,4 @@
-package cn.fortrun.animator;
+package cn.fortrun.demos;
 
 import org.junit.Test;
 

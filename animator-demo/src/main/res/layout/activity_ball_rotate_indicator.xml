@@ -5,13 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="cn.oucyt.demos.MainActivity">
+    android:background="@android:color/holo_red_dark"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn1"
+    <cn.oucyt.demos.graphics.loading.AVLoadingIndicatorView
+        android:id="@+id/indicator"
+        style="@style/AVLoadingIndicatorView.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="水波效果"/>
+        app:indicatorName="BallPulseIndicator"
+        />
+
 
 </LinearLayout>

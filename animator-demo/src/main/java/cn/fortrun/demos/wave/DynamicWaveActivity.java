@@ -1,4 +1,4 @@
-package cn.fortrun.animator.wave;
+package cn.fortrun.demos.wave;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import cn.fortrun.animator.R;
+import cn.fortrun.demos.R;
 
 /**
  * description

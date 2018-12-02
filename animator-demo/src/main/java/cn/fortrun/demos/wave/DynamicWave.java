@@ -1,4 +1,4 @@
-package cn.fortrun.animator.wave;
+package cn.fortrun.demos.wave;
 
 import android.content.Context;
 import android.graphics.Canvas;

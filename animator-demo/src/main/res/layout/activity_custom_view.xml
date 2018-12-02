@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <cn.fortrun.animator.custom.RoundAvatarView
+        <cn.fortrun.demos.custom.RoundAvatarView
             android:layout_width="300dp"
             android:layout_height="300dp"/>
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp" >
 
-            <cn.fortrun.animator.custom.LeafLoadingView
+            <cn.fortrun.demos.custom.LeafLoadingView
                 android:id="@+id/leaf_loading"
                 android:layout_width="302dp"
                 android:layout_height="61dp"

@@ -1,4 +1,4 @@
-package cn.fortrun.animator.custom;
+package cn.fortrun.demos.custom;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import cn.fortrun.animator.R;
+import cn.fortrun.demos.R;
 
 /**
  * description
@@ -110,7 +110,7 @@ public class LeafLoadingView extends View {
         mBitmapPaint.setAntiAlias(true);
         mBitmapPaint.setDither(true);
         mBitmapPaint.setFilterBitmap(true);
-        mBitmapPaint.setXfermode()
+//        mBitmapPaint.setXfermode();
 
         mWhitePaint = new Paint();
         mWhitePaint.setAntiAlias(true);

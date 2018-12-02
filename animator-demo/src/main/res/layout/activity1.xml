@@ -38,7 +38,7 @@
 
     </LinearLayout>
 
-    <cn.fortrun.animator.wave.DynamicWave
+    <cn.fortrun.demos.wave.DynamicWave
         android:id="@+id/dw_wave"
         android:layout_width="150dp"
         android:layout_height="150dp"

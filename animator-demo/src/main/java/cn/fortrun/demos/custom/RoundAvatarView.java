@@ -1,4 +1,4 @@
-package cn.fortrun.animator.custom;
+package cn.fortrun.demos.custom;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,7 +15,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import cn.fortrun.animator.R;
+import cn.fortrun.demos.R;
 
 /**
  * description
