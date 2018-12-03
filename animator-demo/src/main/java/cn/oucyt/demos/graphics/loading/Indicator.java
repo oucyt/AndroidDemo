@@ -15,6 +15,8 @@ import java.util.HashMap;
 
 /**
  * Created by Jack Wang on 2016/8/5.
+ * Android中的Drawable基础与自定义Drawable https://blog.csdn.net/feather_wch/article/details/79124608
+ * Android中Drawable整体介绍 https://www.jianshu.com/p/9ba32fe9d8f5
  */
 
 public abstract class Indicator extends Drawable implements Animatable {
